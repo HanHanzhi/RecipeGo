@@ -1,29 +1,54 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import IngredientList from "./IngredientList";
 
 function Search() {
   const [input, setInput] = useState("");
+  const [ingredientText, setIngredientText] = useState("");
+  const [ingredientList, setIngredientList] = useState([]);
 
   const navigate = useNavigate();
 
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    //navigate("/searched/" + ingredientList);
+    if (!ingredientList.includes(ingredientText))
+      setIngredientList([...ingredientList, ingredientText]);
+    setIngredientText("");
+    console.log(ingredientList);
+  };
+
   const submitHandler = (e) => {
     e.preventDefault();
-    navigate("/searched/" + input);
+    console.log("list is");
+    console.log(ingredientList);
+    navigate("/searched/" + ingredientList);
   };
 
   return (
-    <FormStyle onSubmit={submitHandler}>
-      <div>
+    <div>
+      <FormStyle onSubmit={(e) => onSubmit(e)}>
         <FaSearch></FaSearch>
         <input
-          onChange={(e) => setInput(e.target.value)}
+          //onChange={(e) => setIngredientText(e.target.value)}
+          //type="text"
+          //value={ingredientText}
           type="text"
-          value={input}
+          name="ingredient-search"
+          placeholder="Search ingredients..."
+          value={ingredientText}
+          onChange={(e) => setIngredientText(e.target.value)}
         />
-      </div>
-    </FormStyle>
+      </FormStyle>
+      <IngredientList
+        IngredientList={ingredientList}
+        setIngredientList={setIngredientList}
+      />
+      <button onClick={submitHandler}>Search</button>
+    </div>
   );
 }
 
