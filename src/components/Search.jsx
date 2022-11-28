@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { cloneElement, useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import IngredientList from "./IngredientList";
@@ -28,6 +28,16 @@ function Search() {
     navigate("/searched/" + ingredientList);
   };
 
+  const deleteHandler = (e) => {
+    e.preventDefault();
+    console.log("clearing list");
+    setIngredientList([]);
+    console.log("list now is ");
+    console.log(ingredientList);
+    console.log("list now is ");
+    console.log(ingredientList);
+  };
+
   return (
     <div>
       <FormStyle onSubmit={(e) => onSubmit(e)}>
@@ -48,6 +58,7 @@ function Search() {
         setIngredientList={setIngredientList}
       />
       <button onClick={submitHandler}>Search</button>
+      <button onClick={deleteHandler}>Clear</button>
     </div>
   );
 }
