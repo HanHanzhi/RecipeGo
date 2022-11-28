@@ -32,26 +32,24 @@ function Search() {
     e.preventDefault();
     console.log("clearing list");
     setIngredientList([]);
-    console.log("list now is ");
-    console.log(ingredientList);
-    console.log("list now is ");
-    console.log(ingredientList);
   };
 
   return (
     <div>
       <FormStyle onSubmit={(e) => onSubmit(e)}>
-        <FaSearch></FaSearch>
-        <input
-          //onChange={(e) => setIngredientText(e.target.value)}
-          //type="text"
-          //value={ingredientText}
-          type="text"
-          name="ingredient-search"
-          placeholder="Search ingredients..."
-          value={ingredientText}
-          onChange={(e) => setIngredientText(e.target.value)}
-        />
+        <div>
+          <FaSearch></FaSearch>
+          <input
+            //onChange={(e) => setIngredientText(e.target.value)}
+            //type="text"
+            //value={ingredientText}
+            type="text"
+            name="ingredient-search"
+            placeholder="Search ingredients..."
+            value={ingredientText}
+            onChange={(e) => setIngredientText(e.target.value)}
+          />
+        </div>
       </FormStyle>
       <IngredientList
         IngredientList={ingredientList}
@@ -64,15 +62,17 @@ function Search() {
 }
 
 const FormStyle = styled.form`
-  margin: 0rem 20rem;
+  margin: 0rem 0rem;
   position: relative;
+
   div {
-    width: 50%;
+    width: 90%;
     position: relative;
   }
   width: 100%;
   input {
     border: none;
+    position: relative;
     background: linear-gradient(35deg, #494949, #313131);
     font-size: 1.5rem;
     color: white;
