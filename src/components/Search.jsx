@@ -1,42 +1,78 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { cloneElement, useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import IngredientList from "./IngredientList";
 
 function Search() {
   const [input, setInput] = useState("");
+  const [ingredientText, setIngredientText] = useState("");
+  const [ingredientList, setIngredientList] = useState([]);
 
   const navigate = useNavigate();
 
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    //navigate("/searched/" + ingredientList);
+    if (!ingredientList.includes(ingredientText))
+      setIngredientList([...ingredientList, ingredientText]);
+    setIngredientText("");
+    console.log(ingredientList);
+  };
+
   const submitHandler = (e) => {
     e.preventDefault();
-    navigate("/searched/" + input);
+    console.log("list is");
+    console.log(ingredientList);
+    navigate("/searched/" + ingredientList);
+  };
+
+  const deleteHandler = (e) => {
+    e.preventDefault();
+    console.log("clearing list");
+    setIngredientList([]);
   };
 
   return (
-    <FormStyle onSubmit={submitHandler}>
-      <div>
-        <FaSearch></FaSearch>
-        <input
-          onChange={(e) => setInput(e.target.value)}
-          type="text"
-          value={input}
-        />
-      </div>
-    </FormStyle>
+    <div>
+      <FormStyle onSubmit={(e) => onSubmit(e)}>
+        <div>
+          <FaSearch></FaSearch>
+          <input
+            //onChange={(e) => setIngredientText(e.target.value)}
+            //type="text"
+            //value={ingredientText}
+            type="text"
+            name="ingredient-search"
+            placeholder="Search ingredients..."
+            value={ingredientText}
+            onChange={(e) => setIngredientText(e.target.value)}
+          />
+        </div>
+      </FormStyle>
+      <IngredientList
+        IngredientList={ingredientList}
+        setIngredientList={setIngredientList}
+      />
+      <button onClick={submitHandler}>Search</button>
+      <button onClick={deleteHandler}>Clear</button>
+    </div>
   );
 }
 
 const FormStyle = styled.form`
-  margin: 0rem 20rem;
+  margin: 0rem 0rem;
   position: relative;
+
   div {
-    width: 50%;
+    width: 90%;
     position: relative;
   }
   width: 100%;
   input {
     border: none;
+    position: relative;
     background: linear-gradient(35deg, #494949, #313131);
     font-size: 1.5rem;
     color: white;
