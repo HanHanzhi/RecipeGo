@@ -3,6 +3,7 @@ import { cloneElement, useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import IngredientList from "./IngredientList";
+import IngredientItem from "./IngredientItem";
 
 function Search() {
   const [input, setInput] = useState("");
@@ -55,6 +56,8 @@ function Search() {
         IngredientList={ingredientList}
         setIngredientList={setIngredientList}
       />
+      <IngredientItem></IngredientItem>
+
       <button onClick={submitHandler}>Search</button>
       <button onClick={deleteHandler}>Clear</button>
     </div>

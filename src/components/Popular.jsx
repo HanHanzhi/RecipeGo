@@ -18,55 +18,50 @@ function Popular() {
   const getPopular = async () => {
     const check = localStorage.getItem("popular");
 
-    if (check) {
-      //since local is stored as string, we need to parse it back to array
-      setPopular(JSON.parse(check));
-    } else {
-      const api = await fetch(
-          `https://api.spoonacular.com/recipes/random?apiKey=${process.env.REACT_APP_API_KEY}&number=9`
-      );
-      const data = await api.json();
-      localStorage.setItem("popular", JSON.stringify(data.recipes));
-      setPopular(data.recipes);
-      console.log(data);
-    }
+    const api = await fetch(
+      `https://api.spoonacular.com/recipes/random?apiKey=${process.env.REACT_APP_API_KEY}&number=9`
+    );
+    const data = await api.json();
+    localStorage.setItem("popular", JSON.stringify(data.recipes));
+    setPopular(data.recipes);
+    console.log(data);
   };
 
   //.map is looking through each recipe
   //key = ... is to remove the unique key error, this is to ensure if data gets removed
   //from data base, the website can response accordingly.
   return (
-      <div>
-        <Wrapper>
-          <h3>Popular Recipe</h3>
+    <div>
+      <Wrapper>
+        <h3>Popular Recipe</h3>
 
-          <Splide
-              options={{
-                perPage: 4,
-                drag: "free",
-                gap: "3rem",
-              }}
-          >
-            {popular.map((recipe) => {
-              return (
-                  <SplideSlide key={recipe.id}>
-                    <Card>
-                      <Link to={"/recipe/" + recipe.id}>
-                        <p>{recipe.title}</p>
-                        <img
-                            src={recipe.image}
-                            width={300}
-                            height={250}
-                            alt={recipe.title}
-                        />
-                      </Link>
-                    </Card>
-                  </SplideSlide>
-              );
-            })}
-          </Splide>
-        </Wrapper>
-      </div>
+        <Splide
+          options={{
+            perPage: 4,
+            drag: "free",
+            gap: "3rem",
+          }}
+        >
+          {popular.map((recipe) => {
+            return (
+              <SplideSlide key={recipe.id}>
+                <Card>
+                  <Link to={"/recipe/" + recipe.id}>
+                    <p>{recipe.title}</p>
+                    <img
+                      src={recipe.image}
+                      width={300}
+                      height={250}
+                      alt={recipe.title}
+                    />
+                  </Link>
+                </Card>
+              </SplideSlide>
+            );
+          })}
+        </Splide>
+      </Wrapper>
+    </div>
   );
 }
 
@@ -86,7 +81,7 @@ const Card = styled.div`
     height: 100%;
     object-fit: cover;
   }
-  p{
+  p {
     position: absolute;
     z-index: 10;
     left: 50%;

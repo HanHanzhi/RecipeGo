@@ -16,10 +16,7 @@ const IngredientItem = ({
             ingredientList.filter((ingredient) => ingredient !== ingredientName)
           )
         }
-      >
-        
-        <FontAwesomeIcon icon={faX} size={"lg"} color="red" />
-      </button>
+      ></button>
       {ingredientName}
     </div>
   );
